@@ -303,6 +303,18 @@ def addToCart():
 			adr = (userId, productId)
 			cur.execute(sql, adr)
 			conn.commit()
+
+			sql = 'SELECT stock FROM products WHERE productId = %s'
+			adr = (productId,)
+			cur.execute(sql, adr)
+			stock = cur.fetchone()[0]
+			stock -= 1
+
+			sql = 'UPDATE products SET stock = %s WHERE productId = %s'
+			adr = (stock, productId)
+			cur.execute(sql, adr)
+			conn.commit()
+
 			msg = "Added successfully"
 		except:
 			conn.rollback()
@@ -465,7 +477,18 @@ def removeFromCart():
 		sql = 'DELETE FROM kart WHERE userId = %s AND productId = %s LIMIT 1'
 		adr = (userId, productId)
 		cur.execute(sql, adr)
-		
+
+		sql = 'SELECT stock FROM products WHERE productId = %s'
+		adr = (productId,)
+		cur.execute(sql, adr)
+		stock = cur.fetchone()[0]
+		stock += 1
+
+		sql = 'UPDATE products SET stock = %s WHERE productId = %s'
+		adr = (stock, productId)
+		cur.execute(sql, adr)
+		conn.commit()
+
 		conn.commit()
 		msg = "removed successfully"
 	except:
@@ -495,6 +518,22 @@ def removeFromCheckout():
 		
 		conn.commit()
 		msg = "removed successfully"
+
+		sql = 'SELECT stock FROM products WHERE productId = %s'
+		adr = (productId,)
+		cur.execute(sql, adr)
+		stock = cur.fetchone()[0]
+		stock += 1
+
+		sql = 'UPDATE products SET stock = %s WHERE productId = %s'
+		adr = (stock, productId)
+		cur.execute(sql, adr)
+		conn.commit()
+
+		loggedIn, name, noOfItems = getLoginDetails()
+		if noOfItems == 0:
+			return redirect(url_for('root'))
+
 	except:
 		conn.rollback()
 		msg = "error occured"
