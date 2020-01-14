@@ -54,7 +54,7 @@ def root():
 	itemData = parse(itemData)   
 	return render_template('home.html', itemData=itemData, loggedIn=loggedIn, name=name, noOfItems=noOfItems, categoryData=categoryData)
 
-@app.route("/add") #上架商品
+@app.route("/add")
 def admin():
 	conn = createCinnect()
 	cur = conn.cursor()
@@ -63,7 +63,7 @@ def admin():
 	conn.close()
 	return render_template('add.html', categories=categories)
 
-@app.route("/addItem", methods=["GET", "POST"]) #沒有這網頁，應該是和route("/add")搭配寫
+@app.route("/addItem", methods=["GET", "POST"])
 def addItem():
 	if request.method == "POST":
 		name = request.form['name']
@@ -101,7 +101,7 @@ def addItem():
 		print(msg)
 		return redirect(url_for('root'))
 
-@app.route("/remove") #下架商品
+@app.route("/remove")
 def remove():
 	conn = createCinnect()
 	cur = conn.cursor()
@@ -110,7 +110,7 @@ def remove():
 	conn.close()
 	return render_template('remove.html', data=data)
 
-@app.route("/removeItem") #沒有這網頁，應該是和route("/remove")搭配寫
+@app.route("/removeItem")
 def removeItem():
 	productId = request.args.get('productId')
 	
@@ -343,8 +343,6 @@ def yourOrders():
 			totalPrice += int(tmp[2][1:])
 
 		products.append(['%05d' % row[0], row[1], detail, str(totalPrice)])
-
-	# [訂單編號 時間 (商品編號+明細) $$]
 
 	return render_template("yourOrders.html", products=products, totalPrice=totalPrice, loggedIn=loggedIn, name=name,
 						   noOfItems=noOfItems)
