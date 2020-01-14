@@ -1,11 +1,13 @@
-import sqlite3
+import mysql.connector
+from mysql.connector import errorcode
 
-#Open database
-conn = sqlite3.connect('database.db')
+DB_NAME = 'cloud_final'
 
-#Create table
-conn.execute('''CREATE TABLE users 
-		(userId INTEGER PRIMARY KEY, 
+TABLES = {}
+
+TABLES['users'] = (
+	'''CREATE TABLE users 
+	(userId INTEGER PRIMARY KEY, 
 		password TEXT,
 		email TEXT,
 		firstName TEXT,
