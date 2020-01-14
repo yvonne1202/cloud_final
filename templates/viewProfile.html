@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Profile Home-YLT Online Shopping</title>
-<link rel="stylesheet" href={{ url_for('static', filename='css/profileHome.css') }} />
+<title>View Profile </title>
+<link rel="stylesheet" href={{ url_for('static', filename='css/viewProfile.css') }} />
 <link rel="stylesheet" href={{ url_for('static', filename='css/topStyle.css') }} />
 </head>
 <body>
@@ -33,16 +33,19 @@
 	<div id="kart">
 		<a class="link" href="/cart">
 			<img src={{url_for('static', filename='images/shoppingCart.png')}} id="cartIcon" />
+			CART {{noOfItems}}
 		</a>
-        CART {{noOfItems}}
 	</div>
 </div>
 
 <div class="display", align="center">
-    <h1>Profile Home</h1>
-    <h3><a href="/account/profile/view">View Profile</a></h3>
-    <h3><a href="/account/profile/edit">Edit Profile</a></h3>
-    <h3><a href="/account/profile/changePassword">Change password</a></h3>
+	<h1>View profile</h1>
+    <form>
+    <h3><p name="email">Email: {{profileData[1]}}</p></h3>
+    <h3><p name="name">Name: {{profileData[2]}}</p></h3>
+    <h3><p name="phone">Phone Number: {{profileData[3]}}</p></h3>
+	</form>
+    <h3><a href="{{ url_for('profileHome') }}">Go to Profile</a></h3>
 </div>
 </body>
 </html>

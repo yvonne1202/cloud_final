@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Your Cart</title>
+<title>Checkout</title>
 <link rel="stylesheet" href={{url_for('static', filename='css/cart.css')}} />
 <link rel="stylesheet" href={{url_for('static', filename='css/topStyle.css') }} />
 </head>
@@ -31,14 +31,14 @@
 	</div>
 	{% endif %}
 	<div id="kart">
-		<a class="link" href="/cart">
+		<a class="link" href="/checkout">
 		<img src={{url_for('static', filename='images/shoppingCart.png')}} id="cartIcon" />
+		CART {{noOfItems}}
 		</a>
-        CART {{noOfItems}}
 	</div>
 </div>
 <div id="cartItems", align="center">
-	<h1>Shopping Cart</h1>
+	<h1>Checkout</h1>
 	<div id="tableItems">
 		{% for row in products %}
 		<div>
@@ -49,7 +49,7 @@
 			<div id="itemName">
 				<span id="itemNameTag">{{row[1]}}</span><br>
 				In stock<br>
-				<a href="/removeFromCart?productId={{row[0]}}">Remove</a>
+				<a href="/removeFromCheckout?productId={{row[0]}}">Remove</a>
 			</div>
 			<div id="itemPrice">
 				${{row[2]}}
@@ -58,14 +58,20 @@
 		{% endfor %}
 		<hr id="seperator">
 		<div id="total">
-            <h3><span id="subtotal">Subtotal</span> : ${{totalPrice}}</h3>
+			<span id="subtotal">Subtotal</span> : ${{totalPrice}}
 		</div>
-        {% if totalPrice != 0 %}
-            <h3><a href="/checkout">Proceed to checkout</a></h3>
-        {% endif %}
+	</div>
+	
+	<div id="checkoutInfo">
+		<form action="/checkout" method="POST">
+            <h3><p><input type="radio" name="pay" value="cash" checked>Cash on delivery<br></p></h3>
+            <h3><p><input type="radio" name="pay" value="credit">Credit card<br><p></h3>
+			<h3><p><input type="text" name="detail" placeholder="address" size="100"></p></h3>
+            <h3><p><input type="text" name="detail" placeholder="credit card number" size="100"></p></h3>
+            <h3><p><input type="submit" value="submit"></p></h3>
+		</form>
 	</div>
 </div>
 
 </body>
 </html>
-

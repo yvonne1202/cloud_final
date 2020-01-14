@@ -1,4 +1,5 @@
 import mysql.connector
+from datetime import date, datetime, timedelta
 
 conn = mysql.connector.connect(host='cloud-final-db.cuuzvwa8vpbk.us-east-1.rds.amazonaws.com',user='admin', password='s1051534',database='cloudFinalDB')
 cur = conn.cursor()
@@ -37,9 +38,18 @@ def init_products():
 	conn.commit()
 	print(cur.rowcount, "was inserted.")
 
-	
+def init_history():
+	sql = 'INSERT INTO history (date, userId, status, detail, listNum) VALUES (%s, %s, %s, %s, %s)'
+	val = [
+		(date(2020, 1, 3), '1', '3', '13^Computer 1^$1+16^Saree 1^$1', '13+16'),
+		(date(2020, 1, 5), '1', '2', '11^Book 4^$4+16^Saree 1^$1', '11+16')
+	]
+	cur.executemany(sql, val)
+	conn.commit()
+	print(cur.rowcount, "was inserted.")	
 	
 if __name__ == '__main__':
 	#init_users()
-	init_products()
+	#init_products()
+	init_history()
 	conn.close()

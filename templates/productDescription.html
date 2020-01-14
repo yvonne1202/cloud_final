@@ -8,7 +8,7 @@
 <body>
 <div id="title">
 	<a href="/">
-		<img id="logo" src= {{ url_for('static', filename='images/logo.png') }} />
+		<img id="logo" src= {{ url_for('static', filename='images/logo.PNG') }} />
 	</a>
 	<form>
 		<input id="searchBox" type="text" name="searchQuery">
@@ -21,7 +21,7 @@
 	</div>
 	{% else %}
 	<div class="dropdown">
-		<button class="dropbtn">Hello, <br>{{firstName}}</button>
+		<button class="dropbtn">Hello, <br>{{name}}</button>
 		<div class="dropdown-content">
 			<a href="/account/orders">Your orders</a>
 			<a href="/account/profile">Your profile</a>
@@ -33,11 +33,11 @@
 	<div id="kart">
 		<a class="link" href="/cart">
 			<img src={{url_for('static', filename='images/shoppingCart.png')}} id="cartIcon" />
-			CART {{noOfItems}}
 		</a>
+        CART {{noOfItems}}
 	</div>
 </div>
-<div id="display">
+<div id="display", align="center">
 	<div id="productName">
 		<h1>{{data[1]}}</h1>
 	</div>

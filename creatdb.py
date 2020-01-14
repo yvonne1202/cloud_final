@@ -36,5 +36,15 @@ mycursor.execute('''CREATE TABLE kart
 		FOREIGN KEY(productId) REFERENCES products(productId)
 		)''')
 
+mycursor.execute('''CREATE TABLE history
+		(historyId INT AUTO_INCREMENT PRIMARY KEY,
+		date DATETIME,
+		userId INT,
+		status INT,
+		detail VARCHAR(1000),
+		listNum VARCHAR(255),
+		FOREIGN KEY(userId) REFERENCES users(userId)
+		)''')
+
 conn.close()	
 	
